@@ -5,39 +5,58 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 public class Chance {
-    private double probablitity;
+    private double value;
 
     public Chance(double value) {
-        this.probablitity = value;
+
+        this.value = value;
     }
 
-    static Chance createChance(int numberOfOutcomes, int totalNumberOfOutcomes) {
-        return new Chance((double) numberOfOutcomes / totalNumberOfOutcomes);
+    public static Chance createChance(int numberOfOutcomes, int totalNumberOfOutcomes) {
+        double value = (double) numberOfOutcomes / totalNumberOfOutcomes;
+        return new Chance(value);
     }
 
     @Override
-    public boolean equals(Object anotherObject) {
-        if (!(anotherObject instanceof Chance)) {
-            return false;
-        }
-        Chance otherChance = (Chance) anotherObject;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Chance otherChance = (Chance) o;
+
         MathContext rounding = new MathContext(3);
-        return new BigDecimal(this.probablitity, rounding).equals(new BigDecimal(otherChance.probablitity, rounding));
+        return new BigDecimal(this.value, rounding)
+                .equals(new BigDecimal(otherChance.value, rounding));
+
+    }
+
+    @Override
+    public int hashCode() {
+        long temp = value != +0.0d ? Double.doubleToLongBits(value) : 0L;
+        return (int) (temp ^ (temp >>> 32));
     }
 
 
     public Chance not() {
-        return new Chance(1 - probablitity);
+        return new Chance(1-value);
     }
 
-    public Chance and(Chance chanceOfEventOne) {
-        return new Chance((this.probablitity * chanceOfEventOne.probablitity));
+    public Chance and(Chance anotherChance) {
+        return new Chance(this.value * anotherChance.value);
     }
 
-    public Chance or(Chance chanceOfEventTwo) {
-        Chance notA = this.not();
-        Chance notB = chanceOfEventTwo.not();
-        Chance notAAndNotB = notA.and(notB);
-        return notAAndNotB.not();
+    @Override
+    public String toString() {
+        return "Chance{" +
+                "value=" + value +
+                '}';
+    }
+
+    public Chance or(Chance anotherChance) {
+        Chance noChanceForThis = this.not();
+        Chance noChanceForAnother = anotherChance.not();
+        Chance noChanceForThisAndAnother = noChanceForThis.and(noChanceForAnother);
+        Chance chanceForThisOrAnother = noChanceForThisAndAnother.not();
+        return new Chance(chanceForThisOrAnother.value);
     }
 }

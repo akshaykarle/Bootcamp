@@ -7,16 +7,16 @@ import static junit.framework.Assert.assertEquals;
 public class TestChance {
 
     @Test
-    public void shouldRepresentChanceOfASingleOutcome(){
+    public void shouldRepresentChanceOfASingleOutcome() {
         int numberOfOutcomes = 1;
         int totalNumberOfOutcomes = 6;
-        Chance chance = new Chance((double)numberOfOutcomes / totalNumberOfOutcomes);
-        Chance expectedChance = new Chance((double)1/6);
+        Chance chance = Chance.createChance(numberOfOutcomes, totalNumberOfOutcomes);
+        Chance expectedChance = Chance.createChance(1, 6);
         assertEquals(expectedChance, chance);
     }
 
     @Test
-    public void shouldRepresentEqualityOfChanceOf3And5(){
+    public void shouldRepresentEqualityOfChanceOf3And5() {
         int numberOfOutcomesFor3 = 1;
         int numberOfOutcomesFor5 = 1;
         int totalNumberOfOutcomes = 6;
@@ -53,26 +53,29 @@ public class TestChance {
     }
 
     @Test
-    public void shouldMultiplyChancesOfTwoEvents(){
-        int numberOfOutcomes = 1;
-        int totalNumberOfOutcomes = 6;
-        Chance chanceOfEventOne = Chance.createChance(numberOfOutcomes, totalNumberOfOutcomes);
-        Chance chanceOfEventTwo = Chance.createChance(numberOfOutcomes, totalNumberOfOutcomes);
-        Chance product =  chanceOfEventOne.and(chanceOfEventTwo);
-        Chance expectedChance = Chance.createChance(1, 36);
-        assertEquals(expectedChance,product);
-    }
+    public void shouldRepresentChanceForOneAndSixOnTwoDifferentDices() {
+        int numberOfOutcomesForDice = 1;
+        int totalNumberOfOutcomesForDice = 6;
 
+        Chance chanceForDice1 = Chance.createChance(numberOfOutcomesForDice, totalNumberOfOutcomesForDice);
+        Chance chanceForDice2 = Chance.createChance(numberOfOutcomesForDice, totalNumberOfOutcomesForDice);
+
+        int expectedTotalNumberOfOutcome = 36;
+        int expectedNumberOfOutcome = 1;
+        Chance expectedChance = Chance.createChance(expectedNumberOfOutcome,expectedTotalNumberOfOutcome);
+        assertEquals(expectedChance, chanceForDice1.and(chanceForDice2));
+    }
     @Test
-    public void shouldRepresentChanceOfEitherAOrB(){
-        int numberOfOutcomes = 1;
-        int totalNumberOfOutcomes = 6;
-        Chance chanceOfEventOne = Chance.createChance(numberOfOutcomes, totalNumberOfOutcomes);
-        Chance chanceOfEventTwo = Chance.createChance(numberOfOutcomes, totalNumberOfOutcomes);
-        Chance product =  chanceOfEventOne.or(chanceOfEventTwo);
-        Chance expectedChance = Chance.createChance(11, 36);
-        assertEquals(expectedChance,product);
+    public void shouldRepresentChanceForOneOrSixOnTwoDifferentDices() {
+        int numberOfOutcomesForDice = 1;
+        int totalNumberOfOutcomesForDice = 6;
+
+        Chance chanceForDice1 = Chance.createChance(numberOfOutcomesForDice, totalNumberOfOutcomesForDice);
+        Chance chanceForDice2 = Chance.createChance(numberOfOutcomesForDice, totalNumberOfOutcomesForDice);
+
+        int expectedTotalNumberOfOutcome = 36;
+        int expectedNumberOfOutcome = 11;
+        Chance expectedChance = Chance.createChance(expectedNumberOfOutcome,expectedTotalNumberOfOutcome);
+        assertEquals(expectedChance, chanceForDice1.or(chanceForDice2));
     }
-
-
 }

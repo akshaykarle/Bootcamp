@@ -8,8 +8,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="junit-4.10" level="project" />
-    <orderEntry type="module-library" scope="TEST">
+    <orderEntry type="library" exported="" name="junit-4.10" level="project" />
+    <orderEntry type="module-library" exported="" scope="TEST">
       <library>
         <CLASSES>
           <root url="jar://$APPLICATION_HOME_DIR$/lib/junit-4.10.jar!/" />
@@ -18,10 +18,10 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../biblioteca-refactoring/biblioteca-refactoring/lib/test/junit-4.5.jar!/" />
+          <root url="jar://$USER_HOME$/biblioteca-refactoring/biblioteca-refactoring/lib/test/junit-4.5.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
