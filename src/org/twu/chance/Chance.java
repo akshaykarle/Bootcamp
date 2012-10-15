@@ -35,7 +35,9 @@ public class Chance {
     }
 
     public Chance or(Chance chanceOfEventTwo) {
-        Chance result = this.not().and(chanceOfEventTwo.not());
-        return result.not();
+        Chance notA = this.not();
+        Chance notB = chanceOfEventTwo.not();
+        Chance notAAndNotB = notA.and(notB);
+        return notAAndNotB.not();
     }
 }
